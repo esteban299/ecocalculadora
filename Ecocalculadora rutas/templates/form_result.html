@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>¡Gracias, {{ name }}!</h2>
+
+<div class="form-result__details">
+    <p>Nombre: {{ name }}</p>
+    <p>Email: {{ email }}</p>
+    <p>Dirección: {{ address }}</p>
+    <p>Fecha: {{ date }}</p>
+</div>
+
+<button onclick="descargar()">Descargar mi TXT</button>
+
+<script>
+    function descargar() {
+        const texto = "Nombre: {{ name }}\nEmail: {{ email }}\nDirección: {{ address }}\nFecha: {{ date }}";
+        
+        const blob = new Blob([texto], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'comprobante.txt';
+        a.click();
+    }
+</script>
+
+<p><a href="{{ url_for('index') }}">Volver</a></p>
+
+{% endblock %}
